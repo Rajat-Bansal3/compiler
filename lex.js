@@ -9,7 +9,6 @@ class Lexer {
     this.input = input;
     this.currPos = 0;
     this.tokens = [];
-    
   }
   tokenize() {
     while (this.currPos < this.input.length) {
@@ -30,6 +29,7 @@ class Lexer {
         throw new Error(`Invalid tokens or token scheme ${currChar}`);
       }
     }
+    this.tokens.push(new Token("EOF", null));
     return this.tokens;
   }
   tokenizeNum() {
@@ -40,6 +40,6 @@ class Lexer {
     this.tokens.push(new Token("Number", parseInt(val)));
   }
 }
-let input = "3 +2";
-let lex = new Lexer(input);
-console.log(lex.tokenize());
+module.exports = {
+  Lexer,
+};
