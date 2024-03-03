@@ -1,7 +1,7 @@
 const readline = require('readline');
 const { Lexer } = require('./lex.js');
 const { Parser } = require('./parse.js');
-const { Eval } = require('./evaluator.js');
+const { Evaluator } = require('./evaluator.js');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -12,10 +12,12 @@ rl.question('Enter an expression: ', (expression) => {
   try{const lexer = new Lexer(expression);
   const tokens = lexer.tokenize();
   const parser = new Parser(tokens)
-  const eval = new Eval(parser).evaluate()
+  const data = parser.parse()
+  const eval = new Evaluator();
+  const res = eval.evaluate(data);
   console.log('Tokens:', tokens);
-  console.log('Tokens:', parser.parse());
-  console.log(eval)
+  console.log('parsed:', data);
+  console.log('evaluated:', res);
 
   rl.close();
 }

@@ -1,25 +1,25 @@
-class Eval{
-    evaluate(res){
-        if(res.type === "Number"){
-            return res.value
-        }
-        else if(res.type === "+"){
-            return this.evaluate(res.left) + this.evaluate(res.right)
-        }
-        else if(res.type === "-"){
-            return this.evaluate(res.left) - this.evaluate(res.right)
-        }
-        else if(res.type === "*"){
-            return this.evaluate(res.left) * this.evaluate(res.right)
-        }
-        else if(res.type === "/"){
-            if(res.right === 0) throw new Error("division by zero")
-            return this.evaluate(res.left) + this.evaluate(res.right)
-        }else{
-            throw new Error ("lol")
-        }
+class Evaluator {
+  evaluate(ast) {
+    if (ast.type === 'Number') {
+      return ast.value;
+    } else if (ast.type === '+') {
+      return this.evaluate(ast.left) + this.evaluate(ast.right);
+    } else if (ast.type === '-') {
+      return this.evaluate(ast.left) - this.evaluate(ast.right);
+    } else if (ast.type === '*') {
+      return this.evaluate(ast.left) * this.evaluate(ast.right);
+    } else if (ast.type === '/') {
+      const rightValue = this.evaluate(ast.right);
+      if (rightValue === 0) {
+        throw new Error("Division by zero");
+      }
+      return this.evaluate(ast.left) / rightValue;
+    } else {
+      throw new Error(`Unsupported operation: ${ast.type}`);
     }
+  }
 }
+
 module.exports = {
-    Eval
-}
+  Evaluator,
+};
