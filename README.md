@@ -1,4 +1,4 @@
-## HGC (Harish Gand Compiler)
+
 
 # lexer
  currently trying to make a basic expression evaluator<br/>
