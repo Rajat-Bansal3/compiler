@@ -1,15 +1,5 @@
 import { exit } from "process";
-
-enum TokenType {
-  _return,
-  int_lit,
-  semi,
-}
-
-interface Token {
-  token: TokenType;
-  value?: string;
-}
+import { Token, TokenType } from "./interfaces";
 
 class Tokenizer {
   //utility functions
@@ -49,7 +39,7 @@ class Tokenizer {
   tokenize(): Token[] {
     let tokens: Token[] = [];
     let buf: string = "";
-    
+
     while (this.peek()) {
       // (this.peek());
       if (this.isAlpha(this.peek())) {
@@ -58,12 +48,12 @@ class Tokenizer {
           this.peek() !== null &&
           this.peek() !== undefined &&
           this.isAlphaNumeric(this.peek())
-          ) {
-            (this.peek())
-            buf += this.consume();
+        ) {
+          this.peek();
+          buf += this.consume();
         }
         if (buf == "return") {
-          tokens.push({ token: TokenType._return , value : buf });
+          tokens.push({ token: TokenType._return, value: buf });
           buf = "";
           continue;
         }
@@ -73,8 +63,8 @@ class Tokenizer {
           this.peek() !== null &&
           this.peek() !== undefined &&
           this.isNumeric(this.peek())
-          ) {
-          (this.peek());
+        ) {
+          this.peek();
           buf += this.consume();
           continue;
         }
@@ -83,15 +73,16 @@ class Tokenizer {
         continue;
       } else if (this.isSemi(this.peek())) {
         buf = this.consume();
-        tokens.push({ token: TokenType.semi ,value: buf });
-        buf = ''
+        tokens.push({ token: TokenType.semi, value: buf });
+        buf = "";
         continue;
       } else if (this.isWhiteSpace(this.peek())) {
-        this.consume()
+        this.consume();
         continue;
       } else {
         console.error(
-          "wtf is that i donno that shii uk that u work with that i wont bish",this.peek()
+          "wtf is that i donno that shii uk that u work with that i wont bish",
+          this.peek()
         );
         exit(1);
       }

@@ -1,12 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const process_1 = require("process");
-var TokenType;
-(function (TokenType) {
-    TokenType[TokenType["_return"] = 0] = "_return";
-    TokenType[TokenType["int_lit"] = 1] = "int_lit";
-    TokenType[TokenType["semi"] = 2] = "semi";
-})(TokenType || (TokenType = {}));
+const interfaces_1 = require("./interfaces");
 class Tokenizer {
     //utility functions
     isAlpha(string) {
@@ -49,11 +44,11 @@ class Tokenizer {
                 while (this.peek() !== null &&
                     this.peek() !== undefined &&
                     this.isAlphaNumeric(this.peek())) {
-                    (this.peek());
+                    this.peek();
                     buf += this.consume();
                 }
                 if (buf == "return") {
-                    tokens.push({ token: TokenType._return, value: buf });
+                    tokens.push({ token: interfaces_1.TokenType._return, value: buf });
                     buf = "";
                     continue;
                 }
@@ -63,18 +58,18 @@ class Tokenizer {
                 while (this.peek() !== null &&
                     this.peek() !== undefined &&
                     this.isNumeric(this.peek())) {
-                    (this.peek());
+                    this.peek();
                     buf += this.consume();
                     continue;
                 }
-                tokens.push({ token: TokenType.int_lit, value: buf });
+                tokens.push({ token: interfaces_1.TokenType.int_lit, value: buf });
                 buf = "";
                 continue;
             }
             else if (this.isSemi(this.peek())) {
                 buf = this.consume();
-                tokens.push({ token: TokenType.semi, value: buf });
-                buf = '';
+                tokens.push({ token: interfaces_1.TokenType.semi, value: buf });
+                buf = "";
                 continue;
             }
             else if (this.isWhiteSpace(this.peek())) {

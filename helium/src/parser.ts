@@ -1,23 +1,5 @@
 import { exit } from "process";
-
-enum TokenType {
-  _return,
-  int_lit,
-  semi,
-}
-
-interface Token {
-  token: TokenType;
-  value?: string;
-}
-
-interface nodeExpression {
-  int_lit: Token;
-}
-
-interface nodeExit {
-  expr: nodeExpression;
-}
+import { nodeExit, nodeExpression, Token, TokenType } from "./interfaces";
 
 class Parser {
   private m_tokens: Token[];
@@ -58,17 +40,20 @@ class Parser {
         console.error(
           "What kind of input is that brother give a good expression how can u input an expressoin worng"
         );
-        exit(1)
+        exit(1);
       }
-    }
-    if (!this.peek() || this.peek()?.token === TokenType.semi) {
-      console.error(
-        "What kind of input is that brother give a good expression how can u input an expressoin worng"
-      );
-      exit(1)
 
+      if (this.peek() || this.peek()?.token == TokenType.semi) {
+        this.consume();
+      } else {
+        console.error(
+          "What kind of input is that brother give a good expression how can u input an expressoin worng"
+        );
+        exit(1);
+      }
     }
     this.m_index = 0;
     return exit_node;
   }
 }
+export default Parser;
