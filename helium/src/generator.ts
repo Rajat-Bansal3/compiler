@@ -13,7 +13,6 @@ class generator {
     output += `   mov rdi, ${this.m_root?.expr.int_lit.value}\n`;
     output += "   syscall \n";
     return output;
-    // return this.m_root.expr.int_lit.value;
   }
 }
 export default generator
